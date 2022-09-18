@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "authorities")
 @Data
+//Do you know what data annotation consist of? It's a bad practice to use one on entity
 public class AuthorityEntity implements Idenficiable {
 
     @Id

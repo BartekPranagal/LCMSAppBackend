@@ -35,6 +35,7 @@ public class UserService implements UserDetailsService  {
         user.setName(userRequest.getName());
         user.setSurname(userRequest.getSurname());
         user.setAuthorityEntityList(Arrays.asList(authorityRepository.findByAuthorityName("ROLE_USER").orElseThrow(()-> new RuntimeException())));
+        //Why bother with setting everything up, when at the end you are throwing error?
 
         return userRepository.save(user);
     }
@@ -51,6 +52,7 @@ public class UserService implements UserDetailsService  {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username));
+        //Why dont use @ControllerAdvice to handle them all? :)
 
         return User.builder()
                 .username(user.getUsername())

@@ -16,9 +16,11 @@ public class UserController {
 
     private final UserService userService;
 
+
     @PostMapping
     public UserEntity saveUser(@RequestBody UserRequest user){
         return userService.saveUser(user);
     }
+    //Why does it just returns entity without response code? How could you achieve that?
 
 }
