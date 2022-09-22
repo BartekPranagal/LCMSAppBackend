@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.pranagal.bartosz.lcmsapp.mapper.UserMapper;
 import pl.pranagal.bartosz.lcmsapp.model.dao.users.AuthorityEntity;
 import pl.pranagal.bartosz.lcmsapp.model.dao.users.UserEntity;
 import pl.pranagal.bartosz.lcmsapp.model.dto.user.UserRequest;
@@ -25,16 +26,17 @@ public class UserService implements UserDetailsService  {
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
 
     public UserEntity saveUser(UserRequest userRequest){
-        UserEntity user = new UserEntity();
-        user.setUsername(userRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.setMail(userRequest.getMail());
-        user.setName(userRequest.getName());
-        user.setSurname(userRequest.getSurname());
-        user.setAuthorityEntityList(Arrays.asList(authorityRepository.findByAuthorityName("ROLE_USER").orElseThrow(()-> new RuntimeException())));
+        AuthorityEntity authorityEntity = authorityRepository.findByAuthorityName("ROLE_USER")
+                .orElseThrow(RuntimeException::new);
+        String password = passwordEncoder.encode(userRequest.getPassword());
+
+        UserEntity user = userMapper.dtoToEntity(userRequest);
+        user.setPassword(password);
+        user.setAuthorityEntityList(List.of(authorityEntity));
         //Why bother with setting everything up, when at the end you are throwing error?
 
         return userRepository.save(user);
