@@ -15,15 +15,16 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
     public ResponseEntity<UserEntity> saveUser(@RequestBody @Valid UserRequest user){
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+        userService.saveUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    //Why does it just returns entity without response code? How could you achieve that?
+
 
 }

@@ -37,14 +37,13 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable();
         httpSecurity.authorizeRequests()
                 .antMatchers("/test1")
                 .authenticated()
                 .anyRequest().permitAll();
      //           .and()
           //      .permitAll();
-        httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();
 
         return httpSecurity.build();
     }
