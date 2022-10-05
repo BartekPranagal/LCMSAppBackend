@@ -8,14 +8,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.pranagal.bartosz.lcmsapp.mapper.UserMapper;
-import pl.pranagal.bartosz.lcmsapp.model.dao.users.AuthorityEntity;
-import pl.pranagal.bartosz.lcmsapp.model.dao.users.UserEntity;
-import pl.pranagal.bartosz.lcmsapp.model.dto.user.UserRequest;
+import pl.pranagal.bartosz.lcmsapp.model.dao.AuthorityEntity;
+import pl.pranagal.bartosz.lcmsapp.model.dao.UserEntity;
+import pl.pranagal.bartosz.lcmsapp.model.dto.UserRequest;
 import pl.pranagal.bartosz.lcmsapp.repository.AuthorityRepository;
 import pl.pranagal.bartosz.lcmsapp.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 
 @Service

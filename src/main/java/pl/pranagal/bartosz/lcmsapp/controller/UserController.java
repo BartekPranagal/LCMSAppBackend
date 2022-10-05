@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.pranagal.bartosz.lcmsapp.model.dao.users.UserEntity;
-import pl.pranagal.bartosz.lcmsapp.model.dto.user.UserRequest;
+import pl.pranagal.bartosz.lcmsapp.model.dao.UserEntity;
+import pl.pranagal.bartosz.lcmsapp.model.dto.UserRequest;
 import pl.pranagal.bartosz.lcmsapp.service.UserService;
 
 import javax.validation.Valid;

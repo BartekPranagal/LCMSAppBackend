@@ -1,8 +1,7 @@
 package pl.pranagal.bartosz.lcmsapp.service.converters;
 
-import org.springframework.stereotype.Service;
-import pl.pranagal.bartosz.lcmsapp.model.dao.users.UserEntity;
-import pl.pranagal.bartosz.lcmsapp.model.dto.user.UserResponse;
+import pl.pranagal.bartosz.lcmsapp.model.dao.UserEntity;
+import pl.pranagal.bartosz.lcmsapp.model.dto.UserResponse;
 
 //Why mark this as service and not component?
 public final class UserConverter {

@@ -1,4 +1,4 @@
-package pl.pranagal.bartosz.lcmsapp.model.dto.user;
+package pl.pranagal.bartosz.lcmsapp.model.dto;
 
 import lombok.Data;
 
