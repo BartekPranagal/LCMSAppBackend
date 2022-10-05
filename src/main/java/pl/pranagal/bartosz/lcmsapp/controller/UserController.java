@@ -21,9 +21,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserEntity> saveUser(@RequestBody @Valid UserRequest user){
-        userService.saveUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<UserEntity> saveUser(@RequestBody @Valid UserRequest user) throws Exception {
+        try {
+            userService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
 

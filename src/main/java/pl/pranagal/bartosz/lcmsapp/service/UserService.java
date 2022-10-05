@@ -28,20 +28,27 @@ public class UserService implements UserDetailsService  {
     private final UserMapper userMapper;
 
 
-    public UserEntity saveUser(UserRequest userRequest){
+    public UserEntity saveUser(UserRequest userRequest) throws Exception {
+
+        if(userNameExists(userRequest.getUsername())) {
+            throw new Exception("There is account with this username: " + userRequest.getUsername());
+        }
+
         AuthorityEntity authorityEntity = authorityRepository.findByAuthorityName("ROLE_USER")
                 .orElseThrow(RuntimeException::new);
+
         String password = passwordEncoder.encode(userRequest.getPassword());
 
         UserEntity user = userMapper.dtoToEntity(userRequest);
         user.setPassword(password);
         user.setAuthorityEntityList(List.of(authorityEntity));
-        //Why bother with setting everything up, when at the end you are throwing error?
 
         return userRepository.save(user);
     }
 
-
+    private boolean userNameExists(String username){
+        return userRepository.findByUsername(username).isPresent();
+    }
 
 
 
