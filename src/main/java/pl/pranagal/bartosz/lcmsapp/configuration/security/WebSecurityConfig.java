@@ -33,7 +33,7 @@ public class WebSecurityConfig{
 
     @EventListener(ApplicationReadyEvent.class)
     public void saveUser(){
-        UserEntity user = new UserEntity("Bartek", passwordEncoder.encode("Haslo"));
+        UserEntity user = new UserEntity("Bartek", passwordEncoder.encode("Haslo"),"bpranagal@gmail.com");
         userRepo.save(user);
     }
 

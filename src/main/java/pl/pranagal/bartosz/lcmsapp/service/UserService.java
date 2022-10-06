@@ -30,9 +30,13 @@ public class UserService implements UserDetailsService  {
 
     public UserEntity saveUser(UserRequest userRequest) throws Exception {
 
-        if(userNameExists(userRequest.getUsername())) {
-            throw new Exception("There is account with this username: " + userRequest.getUsername());
+        if(userNameExists(userRequest.getUsername()) || eMailExists(userRequest.getEmail())) {
+            throw new Exception("There is account with this username or email ");
         }
+
+//        if(emailAndUsernameExists(userRequest.getEmail(), userRequest.getUsername())){
+//            throw  new Exception("There is account with this username or email");
+//        }
 
         AuthorityEntity authorityEntity = authorityRepository.findByAuthorityName("ROLE_USER")
                 .orElseThrow(RuntimeException::new);
@@ -48,6 +52,13 @@ public class UserService implements UserDetailsService  {
 
     private boolean userNameExists(String username){
         return userRepository.findByUsername(username).isPresent();
+    }
+    private boolean eMailExists(String email){
+        return userRepository.findAllByEmail(email).isPresent();
+    }
+
+    private boolean emailAndUsernameExists(String email, String username){
+        return userRepository.findAllByEmailAndUsername(email,username).isPresent();
     }
 
 

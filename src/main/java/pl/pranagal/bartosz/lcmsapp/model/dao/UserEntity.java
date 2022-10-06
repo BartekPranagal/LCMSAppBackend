@@ -24,8 +24,10 @@ public class UserEntity implements UserDetails {
     private Long id;
     @Column(unique = true)
     private String username;
+    @Column(unique = true)
     private String password;
-    private String mail;
+    @Column(unique = true)
+    private String email;
     private String name;
     private String surname;
 
@@ -33,9 +35,10 @@ public class UserEntity implements UserDetails {
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<AuthorityEntity> authorityEntityList;
 
-    public UserEntity(String username, String password) {
+    public UserEntity(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     @Override
@@ -69,7 +72,7 @@ public class UserEntity implements UserDetails {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", mail='" + mail + '\'' +
+                ", mail='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", authorityEntityList=" + authorityEntityList +

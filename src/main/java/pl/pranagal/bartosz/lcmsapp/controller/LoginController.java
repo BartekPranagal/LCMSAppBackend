@@ -41,7 +41,7 @@ public class LoginController {
                     .withIssuer("Admin")
                     .sign(algorithm);
 
-            LoginResponse loginResponse = new LoginResponse(user.getUsername(), token);
+            LoginResponse loginResponse = new LoginResponse(user.getId(),user.getUsername(), user.getEmail(), user.getAuthorityEntityList(), token);
             return ResponseEntity.ok(loginResponse);
 
         } catch (UsernameNotFoundException e){
