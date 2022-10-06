@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.pranagal.bartosz.lcmsapp.mapper.UserMapper;
+import pl.pranagal.bartosz.lcmsapp.configuration.mapper.UserMapper;
 import pl.pranagal.bartosz.lcmsapp.model.dao.AuthorityEntity;
 import pl.pranagal.bartosz.lcmsapp.model.dao.UserEntity;
 import pl.pranagal.bartosz.lcmsapp.model.dto.UserRequest;

@@ -1,4 +1,4 @@
-package pl.pranagal.bartosz.lcmsapp.mapper;
+package pl.pranagal.bartosz.lcmsapp.configuration.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

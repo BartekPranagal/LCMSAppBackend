@@ -1,4 +1,4 @@
-package pl.pranagal.bartosz.lcmsapp.security;
+package pl.pranagal.bartosz.lcmsapp.configuration.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;

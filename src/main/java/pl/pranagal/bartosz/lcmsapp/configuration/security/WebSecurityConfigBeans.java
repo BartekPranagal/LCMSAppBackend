@@ -1,4 +1,4 @@
-package pl.pranagal.bartosz.lcmsapp.security;
+package pl.pranagal.bartosz.lcmsapp.configuration.security;
 
 import lombok.RequiredArgsConstructor;
 
