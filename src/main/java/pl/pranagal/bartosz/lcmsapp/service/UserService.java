@@ -7,15 +7,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.pranagal.bartosz.lcmsapp.mapper.UserMapper;
-import pl.pranagal.bartosz.lcmsapp.model.dao.users.AuthorityEntity;
-import pl.pranagal.bartosz.lcmsapp.model.dao.users.UserEntity;
-import pl.pranagal.bartosz.lcmsapp.model.dto.user.UserRequest;
+import pl.pranagal.bartosz.lcmsapp.configuration.mapper.UserMapper;
+import pl.pranagal.bartosz.lcmsapp.model.dao.AuthorityEntity;
+import pl.pranagal.bartosz.lcmsapp.model.dao.UserEntity;
+import pl.pranagal.bartosz.lcmsapp.model.dto.UserRequest;
 import pl.pranagal.bartosz.lcmsapp.repository.AuthorityRepository;
 import pl.pranagal.bartosz.lcmsapp.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -29,20 +28,27 @@ public class UserService implements UserDetailsService  {
     private final UserMapper userMapper;
 
 
-    public UserEntity saveUser(UserRequest userRequest){
+    public UserEntity saveUser(UserRequest userRequest) throws Exception {
+
+        if(userNameExists(userRequest.getUsername())) {
+            throw new Exception("There is account with this username: " + userRequest.getUsername());
+        }
+
         AuthorityEntity authorityEntity = authorityRepository.findByAuthorityName("ROLE_USER")
                 .orElseThrow(RuntimeException::new);
+
         String password = passwordEncoder.encode(userRequest.getPassword());
 
         UserEntity user = userMapper.dtoToEntity(userRequest);
         user.setPassword(password);
         user.setAuthorityEntityList(List.of(authorityEntity));
-        //Why bother with setting everything up, when at the end you are throwing error?
 
         return userRepository.save(user);
     }
 
-
+    private boolean userNameExists(String username){
+        return userRepository.findByUsername(username).isPresent();
+    }
 
 
 

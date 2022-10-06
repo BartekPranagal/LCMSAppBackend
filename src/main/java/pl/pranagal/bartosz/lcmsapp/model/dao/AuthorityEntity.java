@@ -1,4 +1,4 @@
-package pl.pranagal.bartosz.lcmsapp.model.dao.users;
+package pl.pranagal.bartosz.lcmsapp.model.dao;
 
 import lombok.*;
 import pl.pranagal.bartosz.lcmsapp.model.Idenficiable;

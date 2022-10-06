@@ -1,10 +1,10 @@
-package pl.pranagal.bartosz.lcmsapp.mapper;
+package pl.pranagal.bartosz.lcmsapp.configuration.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import pl.pranagal.bartosz.lcmsapp.model.dao.users.UserEntity;
-import pl.pranagal.bartosz.lcmsapp.model.dto.user.UserRequest;
-import pl.pranagal.bartosz.lcmsapp.model.dto.user.UserResponse;
+import pl.pranagal.bartosz.lcmsapp.model.dao.UserEntity;
+import pl.pranagal.bartosz.lcmsapp.model.dto.UserRequest;
+import pl.pranagal.bartosz.lcmsapp.model.dto.UserResponse;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface UserMapper {
