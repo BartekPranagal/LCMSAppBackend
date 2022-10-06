@@ -1,6 +1,8 @@
 package pl.pranagal.bartosz.lcmsapp.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,9 +18,11 @@ import pl.pranagal.bartosz.lcmsapp.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @Transactional
 public class UserService implements UserDetailsService  {
 
@@ -28,15 +32,11 @@ public class UserService implements UserDetailsService  {
     private final UserMapper userMapper;
 
 
-    public UserEntity saveUser(UserRequest userRequest) throws Exception {
+    public UserEntity saveUser(UserRequest userRequest) throws RuntimeException {
 
         if(userNameExists(userRequest.getUsername()) || eMailExists(userRequest.getEmail())) {
-            throw new Exception("There is account with this username or email ");
+            throw new RuntimeException("There is account with this username or email ");
         }
-
-//        if(emailAndUsernameExists(userRequest.getEmail(), userRequest.getUsername())){
-//            throw  new Exception("There is account with this username or email");
-//        }
 
         AuthorityEntity authorityEntity = authorityRepository.findByAuthorityName("ROLE_USER")
                 .orElseThrow(RuntimeException::new);
@@ -54,13 +54,8 @@ public class UserService implements UserDetailsService  {
         return userRepository.findByUsername(username).isPresent();
     }
     private boolean eMailExists(String email){
-        return userRepository.findAllByEmail(email).isPresent();
+        return userRepository.findByEmail(email).isPresent();
     }
-
-    private boolean emailAndUsernameExists(String email, String username){
-        return userRepository.findAllByEmailAndUsername(email,username).isPresent();
-    }
-
 
 
     public List<UserEntity> getUsers(){
