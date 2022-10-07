@@ -13,6 +13,7 @@ import pl.pranagal.bartosz.lcmsapp.configuration.mapper.UserMapper;
 import pl.pranagal.bartosz.lcmsapp.model.dao.AuthorityEntity;
 import pl.pranagal.bartosz.lcmsapp.model.dao.UserEntity;
 import pl.pranagal.bartosz.lcmsapp.model.dto.UserRequest;
+import pl.pranagal.bartosz.lcmsapp.model.dto.UserResponse;
 import pl.pranagal.bartosz.lcmsapp.repository.AuthorityRepository;
 import pl.pranagal.bartosz.lcmsapp.repository.UserRepository;
 
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class UserService implements UserDetailsService  {
+public class UserService{
 
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
@@ -62,19 +63,30 @@ public class UserService implements UserDetailsService  {
         return userRepository.findAll();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException(username));
-        //Why dont use @ControllerAdvice to handle them all? :)
+    @Transactional
+    public UserResponse updateUser(Long id,UserRequest request){
+        UserEntity existingUser = userRepository.findById(id).orElseThrow();
+        existingUser.setUsername(request.getUsername().isEmpty() ? existingUser.getUsername() : request.getUsername());
+        existingUser.setPassword(request.getPassword().isEmpty() ? existingUser.getPassword() : request.getPassword());
+        existingUser.setEmail(request.getEmail().isEmpty() ? existingUser.getEmail() : request.getEmail());
+        existingUser.setName(request.getName().isEmpty() ? existingUser.getName() : request.getName());
+        existingUser.setSurname(request.getSurname().isEmpty() ? existingUser.getSurname() : request.getSurname());
 
-        return User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                //.authorities(user.getAuthorityEntityList()
-                       // .stream()
-                      //  .map((AuthorityEntity::getAuthorityName))
-                       // .toArray(String[]::new))
-                .build();
+        return userMapper.entityToResponse(existingUser);
+
     }
+
+
+
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return userRepository.findByUsername(username).orElseThrow(
+//                ()-> new UsernameNotFoundException("User with username not found"));
+//    }
+
+
+
+
+
 }
