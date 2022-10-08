@@ -1,12 +1,7 @@
 package pl.pranagal.bartosz.lcmsapp.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.pranagal.bartosz.lcmsapp.configuration.mapper.UserMapper;
@@ -16,10 +11,8 @@ import pl.pranagal.bartosz.lcmsapp.model.dto.UserRequest;
 import pl.pranagal.bartosz.lcmsapp.model.dto.UserResponse;
 import pl.pranagal.bartosz.lcmsapp.repository.AuthorityRepository;
 import pl.pranagal.bartosz.lcmsapp.repository.UserRepository;
-
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
