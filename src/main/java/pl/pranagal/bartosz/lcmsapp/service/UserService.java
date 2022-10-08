@@ -33,7 +33,7 @@ public class UserService{
     private final UserMapper userMapper;
 
 
-    public UserEntity saveUser(UserRequest userRequest) throws RuntimeException {
+    public UserResponse saveUser(UserRequest userRequest) throws RuntimeException {
 
         if(userNameExists(userRequest.getUsername()) || eMailExists(userRequest.getEmail())) {
             throw new RuntimeException("There is account with this username or email ");
@@ -48,7 +48,9 @@ public class UserService{
         user.setPassword(password);
         user.setAuthorityEntityList(List.of(authorityEntity));
 
-        return userRepository.save(user);
+        userRepository.save(user);
+
+        return userMapper.entityToResponse(user);
     }
 
     private boolean userNameExists(String username){
