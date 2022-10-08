@@ -33,8 +33,12 @@ public class WebSecurityConfig{
 
     @EventListener(ApplicationReadyEvent.class)
     public void saveUser(){
-        UserEntity user = new UserEntity("Bartek", passwordEncoder.encode("Haslo"),"bpranagal@gmail.com");
-        userRepo.save(user);
+
+        if(userRepo.findByUsername("Bartek").isEmpty()) {
+              UserEntity user = new UserEntity("Bartek", passwordEncoder.encode("Haslo"), "bpranagal@gmail.com");
+            userRepo.save(user);
+        }
+
     }
 
     @Bean
