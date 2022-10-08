@@ -19,6 +19,8 @@
         <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
         <version.lombok>23.2.0</version.lombok>
         <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
