@@ -50,7 +50,6 @@ public class WebSecurityConfig{
         httpSecurity.csrf().disable();
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.authorizeRequests()
-                .antMatchers("/hello").authenticated()
                 .antMatchers("/auth/login").permitAll()
                 .anyRequest().permitAll();
 
